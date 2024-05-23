@@ -239,6 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 62091473}
   - component: {fileID: 62091472}
+  - component: {fileID: 62091474}
   m_Layer: 0
   m_Name: Garage Box AL Self
   m_TagString: Untagged
@@ -326,6 +327,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 360, y: 90, z: 90}
+--- !u!114 &62091474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62091471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &68838730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6176,6 +6200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1035373073}
   - component: {fileID: 1035373072}
+  - component: {fileID: 1035373074}
   m_Layer: 0
   m_Name: Garage Door AL
   m_TagString: Untagged
@@ -6263,6 +6288,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!114 &1035373074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035373071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &1043106577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10604,7 +10652,7 @@ LightProbeGroup:
   - {x: 11.895912, y: 0.59775794, z: -0.09198761}
   - {x: 8.29719, y: 0.59775794, z: -3.896122}
   - {x: 4.3673778, y: 0.59775794, z: -6.4994116}
-  - {x: 0.110874176, y: 0.59775794, z: -8.112045}
+  - {x: -0.20172596, y: 0.59775794, z: -8.112045}
   - {x: -6.1775446, y: 0.59775794, z: -7.1335726}
   - {x: -14.471439, y: -2.7151394, z: -7.058153}
   - {x: -17.220629, y: 0.59775794, z: -1.803999}
@@ -11202,6 +11250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1947445203}
   - component: {fileID: 1947445202}
+  - component: {fileID: 1947445204}
   m_Layer: 0
   m_Name: Garage Box AL
   m_TagString: Untagged
@@ -11289,6 +11338,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 180, y: 89.99999, z: 89.99999}
+--- !u!114 &1947445204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947445201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &1971385684
 PrefabInstance:
   m_ObjectHideFlags: 0
