@@ -35,7 +35,7 @@ MonoBehaviour:
   - 50b4fbecfaebb47e0b5acbda695aeb7c
   obsoleteScenesToNotBake: []
   m_LightingScenarios:
-  - Default
+  - Day
   - Night
   cellDescs:
     m_Keys: 090000000c0000000a0000000d000000
@@ -75,11 +75,11 @@ MonoBehaviour:
         hasOnlyBiggerBricks: 0
     - position: {x: 0, y: 0, z: 0}
       index: 13
-      probeCount: 20672
+      probeCount: 20736
       minSubdiv: 0
       indexChunkCount: 91
       shChunkCount: 3
-      bricksCount: 323
+      bricksCount: 324
       indirectionEntryInfo:
       - positionInBricks: {x: 0, y: 0, z: 0}
         minSubdiv: 0
@@ -105,10 +105,10 @@ MonoBehaviour:
     m_Asset: {fileID: 0}
   scenarios:
     m_Keys:
-    - Default
+    - Day
     - Night
     m_Values:
-    - sceneHash: 213902854
+    - sceneHash: 1596861223
       cellDataAsset:
         m_AssetGUID: 35d2955e7ebeb4267885f14b7c9dba60
         m_StreamableAssetPath: APVStreamingAssets/3367c77a83c7b45e49d503f971fa0fb8/35d2955e7ebeb4267885f14b7c9dba60.bytes
@@ -141,7 +141,7 @@ MonoBehaviour:
           - offset: 1441792
             elementCount: 3
         m_Asset: {fileID: 0}
-    - sceneHash: 213902854
+    - sceneHash: 1596861223
       cellDataAsset:
         m_AssetGUID: b367fa9f2b4d44038ac5b3c15a6188f4
         m_StreamableAssetPath: APVStreamingAssets/3367c77a83c7b45e49d503f971fa0fb8/b367fa9f2b4d44038ac5b3c15a6188f4.bytes
@@ -188,7 +188,7 @@ MonoBehaviour:
       - offset: 12848
         elementCount: 439
       - offset: 19872
-        elementCount: 323
+        elementCount: 324
     m_Asset: {fileID: 0}
   cellSupportDataAsset:
     m_AssetGUID: c8a05624cfb304a8c978ad248b273f5a
@@ -237,7 +237,7 @@ MonoBehaviour:
   supportLayerMaskChunkSize: 0
   supportOffsetsChunkSize: 98304
   supportDataChunkSize: 262144
-  lightingScenario: Default
+  lightingScenario: Day
   version: 1
   freezePlacement: 0
   probeOffset: {x: 0, y: 0, z: 0}
