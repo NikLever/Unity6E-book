@@ -1,7 +1,10 @@
-Shader "CustomURP/Unlit"
+Shader "CustomURP/UnlitTexture"
 {
     Properties
-    { }
+    { 
+        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+        [MainTexture] _BaseMap("Base Map", 2D) = "white" {}
+    }
 
     SubShader
     {
@@ -10,7 +13,6 @@ Shader "CustomURP/Unlit"
         Pass
         {
             HLSLPROGRAM
-            
             #pragma vertex vert
             #pragma fragment frag
 
@@ -19,26 +21,36 @@ Shader "CustomURP/Unlit"
             struct Attributes
             {
                 float4 positionOS   : POSITION;
+                float2 uv           : TEXCOORD0;
             };
 
             struct Varyings
             {
                 float4 positionHCS  : SV_POSITION;
+                float2 uv           : TEXCOORD0;
             };
+
+            TEXTURE2D(_BaseMap);
+            SAMPLER(sampler_BaseMap);
+
+            CBUFFER_START(UnityPerMaterial)
+                half4 _BaseColor;
+                float4 _BaseMap_ST;
+            CBUFFER_END
 
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
                 return OUT;
             }
 
-            half4 frag() : SV_Target
+            half4 frag(Varyings IN) : SV_Target
             {
-                half4 customColor = half4(1, 1, 1, 1);
-                return customColor;
+                half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv);
+                return color;
             }
-            
             ENDHLSL
         }
     }

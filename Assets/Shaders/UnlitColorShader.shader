@@ -1,7 +1,9 @@
-Shader "CustomURP/Unlit"
+Shader "CustomURP/UnlitColor"
 {
     Properties
-    { }
+    { 
+        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+    }
 
     SubShader
     {
@@ -10,7 +12,6 @@ Shader "CustomURP/Unlit"
         Pass
         {
             HLSLPROGRAM
-            
             #pragma vertex vert
             #pragma fragment frag
 
@@ -26,6 +27,10 @@ Shader "CustomURP/Unlit"
                 float4 positionHCS  : SV_POSITION;
             };
 
+            CBUFFER_START(UnityPerMaterial)
+                half4 _BaseColor;
+            CBUFFER_END
+
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
@@ -35,10 +40,8 @@ Shader "CustomURP/Unlit"
 
             half4 frag() : SV_Target
             {
-                half4 customColor = half4(1, 1, 1, 1);
-                return customColor;
+                return _BaseColor;
             }
-            
             ENDHLSL
         }
     }
