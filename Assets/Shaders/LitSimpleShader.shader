@@ -23,6 +23,7 @@ Shader "CustomURP/LitSimple"
             {
                 float4 positionOS   : POSITION;
                 float2 uv           : TEXCOORD0;
+                half3  normalOS     : NORMAL;
             };
 
             struct Varyings
@@ -46,7 +47,7 @@ Shader "CustomURP/LitSimple"
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
 
-                VertexNormalInputs positions = GetVertexNormalInputs(IN.positionOS);
+                VertexNormalInputs positions = GetVertexNormalInputs(IN.normalOS);
                 Light light = GetMainLight();
                 OUT.lightAmount = LightingLambert(light.color, light.direction, positions.normalWS.xyz);
 
