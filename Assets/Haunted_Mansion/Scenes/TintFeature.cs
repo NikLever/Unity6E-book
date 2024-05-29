@@ -6,12 +6,12 @@ using UnityEngine.Rendering.RenderGraphModule;
 public class TintRendererFeature : ScriptableRendererFeature
 {
     public RenderPassEvent injectionPoint = RenderPassEvent.AfterRendering;
-    // Material with the DitherEffect conversion shader 
+    // Material with the Tint conversion shader 
     public Material passMaterial;
     private ProfilingSampler m_Sampler;
     // Needed requirements for the pass
     public ScriptableRenderPassInput requirements = ScriptableRenderPassInput.Color;
-     private static readonly int m_BlitTextureID = Shader.PropertyToID("_BlitTexture");
+    private static readonly int m_BlitTextureID = Shader.PropertyToID("_BlitTexture");
     private static readonly int m_BlitScaleBiasID = Shader.PropertyToID("_BlitScaleBias");
 
     private static MaterialPropertyBlock s_SharedPropertyBlock = null;
@@ -53,12 +53,6 @@ public class TintRendererFeature : ScriptableRendererFeature
 
             cmd.DrawProcedural(Matrix4x4.identity, material, 0, MeshTopology.Triangles, 3, 1, s_SharedPropertyBlock);
         }
-
-        // This static method is passed as the RenderFunc delegate to the RenderGraph render pass.
-        // It is used to execute draw commands.
-        /*static void ExecutePass(PassData data, RasterGraphContext context)
-        {
-        }*/
 
         // RecordRenderGraph is where the RenderGraph handle can be accessed, through which render passes can be added to the graph.
         // FrameData is a context container through which URP resources can be accessed and managed.

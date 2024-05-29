@@ -65,9 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9f0318d6cde4a6da68477f66ad8e4c, type: 3}
   m_Name: TintRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   injectionPoint: 600
-  passMaterial: {fileID: -876546973899608171, guid: 2dfdcc9600f2d4764b4a2369b069fa1b, type: 3}
+  passMaterial: {fileID: 2100000, guid: b12a9b1e7d1474eab8c683fd0bcce0d8, type: 2}
   requirements: 4
 --- !u!114 &7833122117494664109
 MonoBehaviour:
