@@ -85,7 +85,7 @@ public class DitherEffectFeature : ScriptableRendererFeature
         {
             desc.msaaSamples = 1;
             desc.depthBufferBits = (int)DepthBits.None;
-            RenderingUtils.ReAllocateIfNeeded(ref m_CopiedColor, desc, name: "_FullscreenPassColorCopy");
+            RenderingUtils.ReAllocateHandleIfNeeded(ref m_CopiedColor, desc, name: "_FullscreenPassColorCopy");
         }
 
         public void Dispose()
