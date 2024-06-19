@@ -14,6 +14,8 @@ public class DitherEffectFeature : ScriptableRendererFeature
     // Needed requirements for the pass
     public ScriptableRenderPassInput requirements = ScriptableRenderPassInput.Color;
 
+    public bool optimise = false;
+
     private static MaterialPropertyBlock s_SharedPropertyBlock = null;
 
     // The pass itself
@@ -21,7 +23,7 @@ public class DitherEffectFeature : ScriptableRendererFeature
 
     public override void Create()
     {
-        m_pass = new DitherEffectPass(passMaterial, name);
+        m_pass = new DitherEffectPass(passMaterial, name, optimise);
         m_pass.renderPassEvent = injectionPoint;
         m_pass.ConfigureInput(requirements);
     }
@@ -43,6 +45,7 @@ public class DitherEffectFeature : ScriptableRendererFeature
         private string m_PassName;
         private ProfilingSampler m_Sampler;
         private Material m_Material;
+        private bool m_Optimise;
         private static readonly int m_BlitTextureID = Shader.PropertyToID("_BlitTexture");
         private static readonly int m_BlitScaleBiasID = Shader.PropertyToID("_BlitScaleBias");
 
@@ -58,14 +61,17 @@ public class DitherEffectFeature : ScriptableRendererFeature
             internal Material material;
             internal TextureHandle source;
         }
+        private static Material s_FrameBufferFetchMaterial;
         /////////////////////////////////////
         
-        public DitherEffectPass(Material mat, string name)
+        public DitherEffectPass(Material mat, string name, bool optimise)
         {
             m_PassName = name;
             m_Material = mat;
+            m_Optimise = optimise;
 
             m_Sampler ??= new ProfilingSampler(GetType().Name + "_" + name);
+            s_FrameBufferFetchMaterial ??= UnityEngine.Resources.Load("FrameBufferFetch") as Material;
         }
 
         [System.Obsolete]
@@ -79,7 +85,7 @@ public class DitherEffectFeature : ScriptableRendererFeature
         {
             desc.msaaSamples = 1;
             desc.depthBufferBits = (int)DepthBits.None;
-            RenderingUtils.ReAllocateIfNeeded(ref m_CopiedColor, desc, name: "_FullscreenPassColorCopy");
+            RenderingUtils.ReAllocateHandleIfNeeded(ref m_CopiedColor, desc, name: "_FullscreenPassColorCopy");
         }
 
         public void Dispose()
@@ -87,9 +93,16 @@ public class DitherEffectFeature : ScriptableRendererFeature
             m_CopiedColor?.Release();
         }
 
-        private static void ExecuteCopyColorPass(RasterCommandBuffer cmd, RTHandle sourceTexture)
+        private static void ExecuteCopyColorPass(RasterCommandBuffer cmd, RTHandle sourceTexture, bool optimise)
         {
-            Blitter.BlitTexture(cmd, sourceTexture, new Vector4(1, 1, 0, 0), 0.0f, false);
+            if(!optimise)
+            {
+                Blitter.BlitTexture(cmd, sourceTexture, new Vector4(1, 1, 0, 0), 0.0f, false);
+            }
+            else
+            {
+                cmd.DrawProcedural(Matrix4x4.identity, s_FrameBufferFetchMaterial, 1, MeshTopology.Triangles, 3, 1, null);
+            }
         }
 
         private static void ExecuteMainPass(RasterCommandBuffer cmd, Material material, RTHandle copiedColor)
@@ -101,7 +114,7 @@ public class DitherEffectFeature : ScriptableRendererFeature
             // We need to set the "_BlitScaleBias" uniform for user materials with shaders relying on core Blit.hlsl to work
             s_SharedPropertyBlock.SetVector(m_BlitScaleBiasID, new Vector4(1, 1, 0, 0));
 
-            cmd.DrawProcedural(Matrix4x4.identity, material, 0, MeshTopology.Triangles, 3, 1, s_SharedPropertyBlock);
+            cmd.DrawProcedural(Matrix4x4.identity, material, 0, MeshTopology.Triangles, 4, 1, s_SharedPropertyBlock);
         }
 
         // NON Render Graph ONLY
@@ -129,7 +142,7 @@ public class DitherEffectFeature : ScriptableRendererFeature
                 // Set the render target to the temporary color texture (created in OnCameraSetup())
                 CoreUtils.SetRenderTarget(cmd, m_CopiedColor);
                 // Execute the copy pass, copying the URP camera color target to the temp color target
-                ExecuteCopyColorPass(rasterCmd, cameraData.renderer.cameraColorTargetHandle);
+                ExecuteCopyColorPass(rasterCmd, cameraData.renderer.cameraColorTargetHandle, m_Optimise);
 
                 // Set the render target back to the URP camera color target
                 CoreUtils.SetRenderTarget(cmd, cameraData.renderer.cameraColorTargetHandle);
@@ -166,36 +179,44 @@ public class DitherEffectFeature : ScriptableRendererFeature
             {
                 // Setting the URP active color texture as the source for this pass
                 passData.source = resourceData.activeColorTexture;
-
                 // Setting input texture to sample
-                builder.UseTexture(resourceData.activeColorTexture, AccessFlags.Read);
+                if (m_Optimise){
+                    builder.SetInputAttachment(resourceData.activeColorTexture, 0);
+                }else{
+                    builder.UseTexture(resourceData.activeColorTexture, AccessFlags.Read);
+                }
                 // Setting output attachment
                 builder.SetRenderAttachment(copiedColorTexture, 0, AccessFlags.Write);
 
                 // Execute step, simple copy
                 builder.SetRenderFunc((PassData data, RasterGraphContext rgContext) =>
                 {
-                    ExecuteCopyColorPass(rgContext.cmd, data.source);
+                    ExecuteCopyColorPass(rgContext.cmd, data.source, m_Optimise);
                 });
             }
 
             // Second blit with material, applying gray conversion
             using (var builder = renderGraph.AddRasterRenderPass<PassData>(m_PassName + "_FullScreenPass", out var passData, m_Sampler))
             {
-                // Setting the temp color texture as the source for this pass
-                passData.source = resourceData.activeColorTexture;
                 // Setting the material
+                passData.source = resourceData.activeColorTexture;
                 passData.material = m_Material;
 
                 // Setting input texture to sample
-                builder.UseTexture(copiedColorTexture, AccessFlags.Read);
+                if (m_Optimise){
+                    builder.SetInputAttachment( copiedColorTexture, 0);
+                }else{
+                    // Setting the temp color texture as the source for this pass
+                    //passData.source = copiedColorTexture;
+                    builder.UseTexture(copiedColorTexture, AccessFlags.Read);
+                }
                 // Setting output attachment
                 builder.SetRenderAttachment(resourceData.activeColorTexture, 0, AccessFlags.Write);
 
                 // Execute step, second blit with the gray scale conversion
                 builder.SetRenderFunc((PassData data, RasterGraphContext rgContext) =>
                 {
-                    ExecuteMainPass(rgContext.cmd, data.material, data.source);
+                    ExecuteMainPass(rgContext.cmd, data.material, m_Optimise ? null : data.source);
                 });
             }
         }

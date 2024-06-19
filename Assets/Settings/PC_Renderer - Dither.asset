@@ -104,3 +104,4 @@ MonoBehaviour:
   injectionPoint: 600
   passMaterial: {fileID: -876546973899608171, guid: 2dfdcc9600f2d4764b4a2369b069fa1b, type: 3}
   requirements: 4
+  optimise: 1

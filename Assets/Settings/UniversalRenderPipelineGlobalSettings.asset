@@ -102,7 +102,7 @@ MonoBehaviour:
         m_Version: 0
         m_StripUnusedPostProcessingVariants: 1
         m_StripUnusedVariants: 1
-        m_StripScreenCoordOverrideVariants: 1
+        m_StripScreenCoordOverrideVariants: 0
     - rid: 6852985685364965377
       type: {class: UniversalRenderPipelineEditorShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
@@ -172,12 +172,12 @@ MonoBehaviour:
       type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
         m_Version: 0
-        m_VolumeProfile: {fileID: 11400000, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
+        m_VolumeProfile: {fileID: 11400000, guid: 8207ce5007c8b48139bb358c474ba507, type: 2}
     - rid: 6852985685364965385
       type: {class: RenderGraphSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
         m_Version: 0
-        m_EnableRenderCompatibilityMode: 1
+        m_EnableRenderCompatibilityMode: 0
     - rid: 6852985685364965386
       type: {class: GPUResidentDrawerResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.GPUDriven.Runtime}
       data:
