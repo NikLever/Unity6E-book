@@ -5,7 +5,7 @@ using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-/*public class DitherEffectFeature : ScriptableRendererFeature
+public class DitherEffectFeature : ScriptableRendererFeature
 {
     // We want to call the pass after post processing
     public RenderPassEvent injectionPoint = RenderPassEvent.AfterRendering;
@@ -46,7 +46,7 @@ using UnityEngine.Rendering.Universal;
         private ProfilingSampler m_Sampler;
         private Material m_Material;
         private bool m_Optimise;
-        private static readonly int m_BlitTextureID = Shader.PropertyToID("_BlitTexture");
+        //private static readonly int m_BlitTextureID = Shader.PropertyToID("_BlitTexture");
         private static readonly int m_BlitScaleBiasID = Shader.PropertyToID("_BlitScaleBias");
 
         /////// NON Render Graph ONLY ///////
@@ -108,8 +108,8 @@ using UnityEngine.Rendering.Universal;
         private static void ExecuteMainPass(RasterCommandBuffer cmd, Material material, RTHandle copiedColor)
         {
             s_SharedPropertyBlock.Clear();
-            if (copiedColor != null)
-                s_SharedPropertyBlock.SetTexture(m_BlitTextureID, copiedColor);
+            //if (copiedColor != null)
+            //    s_SharedPropertyBlock.SetTexture(m_BlitTextureID, copiedColor);
 
             // We need to set the "_BlitScaleBias" uniform for user materials with shaders relying on core Blit.hlsl to work
             s_SharedPropertyBlock.SetVector(m_BlitScaleBiasID, new Vector4(1, 1, 0, 0));
@@ -221,4 +221,4 @@ using UnityEngine.Rendering.Universal;
             }
         }
     }
-}*/
+}

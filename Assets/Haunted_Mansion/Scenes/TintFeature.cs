@@ -21,6 +21,7 @@ public class TintRendererFeature : ScriptableRendererFeature
         private Material m_Material;
         private string m_PassName;
         private ProfilingSampler m_Sampler;
+        private static Material s_FrameBufferFetchMaterial;
         
         // This class stores the data needed by the RenderGraph pass.
         // It is passed as a parameter to the delegate function that executes the RenderGraph pass.
@@ -35,11 +36,13 @@ public class TintRendererFeature : ScriptableRendererFeature
             m_PassName = name;
             m_Material = mat;
             m_Sampler ??= new ProfilingSampler(GetType().Name + "_" + name);
+            s_FrameBufferFetchMaterial ??= UnityEngine.Resources.Load("FrameBufferFetch") as Material;
         }
 
         private static void ExecuteCopyColorPass(RasterCommandBuffer cmd, RTHandle sourceTexture)
         {
-            Blitter.BlitTexture(cmd, sourceTexture, new Vector4(1, 1, 0, 0), 0.0f, false);
+            //Blitter.BlitTexture(cmd, sourceTexture, new Vector4(1, 1, 0, 0), 0.0f, false);
+            cmd.DrawProcedural(Matrix4x4.identity, s_FrameBufferFetchMaterial, 1, MeshTopology.Triangles, 3, 1, null);
         }
 
         private static void ExecuteMainPass(RasterCommandBuffer cmd, Material material, RTHandle copiedColor)
@@ -75,7 +78,8 @@ public class TintRendererFeature : ScriptableRendererFeature
                 passData.source = resourceData.activeColorTexture;
 
                 // Setting input texture to sample
-                builder.UseTexture(resourceData.activeColorTexture, AccessFlags.Read);
+                //builder.UseTexture(resourceData.activeColorTexture, AccessFlags.Read);
+                builder.SetInputAttachment(resourceData.activeColorTexture, 0);
                 // Setting output attachment
                 builder.SetRenderAttachment(copiedColorTexture, 0, AccessFlags.Write);
 
@@ -95,7 +99,8 @@ public class TintRendererFeature : ScriptableRendererFeature
                 passData.material = m_Material;
 
                 // Setting input texture to sample
-                builder.UseTexture(copiedColorTexture, AccessFlags.Read);
+                //builder.UseTexture(copiedColorTexture, AccessFlags.Read);
+                builder.SetInputAttachment( copiedColorTexture, 0);
                 // Setting output attachment
                 builder.SetRenderAttachment(resourceData.activeColorTexture, 0, AccessFlags.Write);
 
