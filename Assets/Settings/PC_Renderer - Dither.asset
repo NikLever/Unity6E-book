@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7525286538435185894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29c032c945e6ff46841bfac84dfbda4, type: 3}
+  m_Name: DitherEffectRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  material: {fileID: -876546973899608171, guid: 2dfdcc9600f2d4764b4a2369b069fa1b, type: 3}
+  renderPassEvent: 600
 --- !u!114 &-4765361179125184582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,10 +28,8 @@ MonoBehaviour:
   m_Name: DitherEffectFeature
   m_EditorClassIdentifier: 
   m_Active: 0
-  injectionPoint: 600
-  passMaterial: {fileID: -876546973899608171, guid: 2dfdcc9600f2d4764b4a2369b069fa1b, type: 3}
-  requirements: 4
-  optimise: 1
+  material: {fileID: 0}
+  renderPassEvent: 600
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,8 +56,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: 3013510189129693359}
-  m_RendererFeatureMap: ad6b866f10d7b46caf7818fe8c23d229
+  - {fileID: -7525286538435185894}
+  m_RendererFeatureMap: ad6b866f10d7b46c1ab38a93c3cf9097
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
