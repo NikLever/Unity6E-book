@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-
-/*
-public class DitherEffectFeature : ScriptableRendererFeature
+public class DitherEffectFeatureX: ScriptableRendererFeature
 {
     // We want to call the pass after post processing
     public RenderPassEvent injectionPoint = RenderPassEvent.AfterRendering;
@@ -214,5 +212,3 @@ public class DitherEffectFeature : ScriptableRendererFeature
         }
     }
 }
-
-*/
