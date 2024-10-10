@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   material: {fileID: -876546973899608171, guid: 2dfdcc9600f2d4764b4a2369b069fa1b, type: 3}
-  renderPassEvent: 600
+  injectionPoint: 600
+  requirements: 4
 --- !u!114 &-4765361179125184582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,7 +30,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 0
   material: {fileID: 0}
-  renderPassEvent: 600
+  injectionPoint: 600
+  requirements: 4
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +78,7 @@ MonoBehaviour:
     failOperation: 0
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
-  m_RenderingMode: 0
+  m_RenderingMode: 2
   m_DepthPrimingMode: 0
   m_CopyDepthMode: 0
   m_DepthAttachmentFormat: 0
@@ -97,7 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DitherEffectRendererFeature
   m_Active: 1
   material: {fileID: -876546973899608171, guid: 2dfdcc9600f2d4764b4a2369b069fa1b, type: 3}
-  renderPassEvent: 600
+  injectionPoint: 600
+  requirements: 4
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0

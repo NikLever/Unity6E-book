@@ -3,8 +3,8 @@ using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering.RenderGraphModule.Util;
-using UnityEngine.Experimental.Rendering;
-using static UnityEditor.ShaderData;
+//using UnityEngine.Experimental.Rendering;
+//using static UnityEditor.ShaderData;
 
 //This example blits the active CameraColor to a new texture. It shows how to do a blit with material, and how to use the ResourceData to avoid another blit back to the active color target.
 //This example is for API demonstrative purposes. 
@@ -79,7 +79,7 @@ public class DitherEffectRendererFeature : ScriptableRendererFeature
     public Material material;
 
     [Tooltip("The event where to inject the pass.")]
-    public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
+    public RenderPassEvent injectionPoint = RenderPassEvent.AfterRenderingPostProcessing;
 
     DitherEffectPass m_Pass;
 
@@ -89,7 +89,7 @@ public class DitherEffectRendererFeature : ScriptableRendererFeature
         m_Pass = new DitherEffectPass();
 
         // Configures where the render pass should be injected.
-        m_Pass.renderPassEvent = renderPassEvent;
+        m_Pass.renderPassEvent = injectionPoint;
     }
 
     // Here you can inject one or multiple render passes in the renderer.
